@@ -1,0 +1,13 @@
+
+{
+  "name": "hecar-demo-website",
+  "version": "1.0.0",
+  "description": "HECAR Demo Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
