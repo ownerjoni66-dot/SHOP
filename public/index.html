@@ -3,140 +3,215 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHOP - Account</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHOP - Register</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f7f4;color:#17251c;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
-.wrapper{width:100%;max-width:420px}
-.brand{text-align:center;margin-bottom:22px}
-.logo{font-size:38px;font-weight:900;color:#087b43;letter-spacing:3px}
-.brand p{color:#78877d;font-size:14px;margin-top:7px}
-.card{background:white;border-radius:22px;padding:25px;box-shadow:0 12px 40px #173b2512}
-.tabs{display:flex;background:#f0f5f1;border-radius:12px;padding:5px;margin-bottom:24px}
-.tabs button{width:50%;border:0;padding:12px;border-radius:9px;background:transparent;font-weight:bold;color:#718076}
-.tabs button.active{background:#087b43;color:white;box-shadow:0 3px 8px #087b4330}
-h2{font-size:24px;margin:0 0 8px}
-.subtitle{color:#849087;font-size:13px;margin-bottom:22px}
-label{font-size:13px;font-weight:bold;display:block;margin:14px 0 7px}
-input{width:100%;padding:14px;border:1px solid #e0e8e1;border-radius:10px;font-size:14px;outline:none;background:#fbfdfb}
+body{
+ margin:0;
+ min-height:100vh;
+ font-family:Arial,sans-serif;
+ background:linear-gradient(160deg,#fff 25%,#eff7ed);
+ color:#202820;
+}
+.container{
+ width:100%;
+ max-width:500px;
+ margin:auto;
+ padding:0 5% 35px;
+}
+.logo-area{
+ height:390px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+}
+.logo{
+ width:130px;
+ height:130px;
+ background:#080808;
+ color:white;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:43px;
+ font-weight:900;
+ letter-spacing:-4px;
+ border:5px solid #080808;
+}
+.logo span{color:#13a45a}
+.form-area{width:100%}
+input{
+ width:100%;
+ height:86px;
+ border:1px solid #e9eeea;
+ background:#fff;
+ border-radius:11px;
+ padding:0 19px;
+ margin-bottom:35px;
+ font-size:19px;
+ outline:none;
+ color:#222;
+ box-shadow:0 2px 5px #00000003;
+}
 input:focus{border-color:#087b43}
-.submit{width:100%;border:0;border-radius:11px;background:#087b43;color:white;padding:15px;font-size:15px;font-weight:bold;margin-top:22px}
-.submit:disabled{opacity:.6}
-.message{font-size:13px;margin-top:13px;line-height:1.5}
+.phone-wrap{
+ display:flex;
+ align-items:center;
+ height:86px;
+ border:1px solid #e9eeea;
+ background:white;
+ border-radius:11px;
+ margin-bottom:35px;
+ padding:0 18px;
+}
+.phone-wrap span{font-size:21px;color:#555;margin-right:12px}
+.phone-wrap input{
+ height:100%;
+ border:0;
+ margin:0;
+ padding:0;
+ box-shadow:none;
+ min-width:0;
+}
+.main-btn{
+ width:100%;
+ height:84px;
+ border:0;
+ border-radius:50px;
+ color:white;
+ font-size:25px;
+ font-weight:bold;
+ background:linear-gradient(105deg,#07854b,#00331e);
+ margin-top:10px;
+}
+.switch{
+ text-align:center;
+ margin-top:55px;
+ font-size:19px;
+}
+.switch button{
+ border:0;
+ background:transparent;
+ font-weight:bold;
+ font-size:20px;
+ margin-left:10px;
+}
+#message{
+ text-align:center;
+ font-size:14px;
+ margin-top:18px;
+ color:#087b43;
+ line-height:1.5;
+}
 .hidden{display:none}
-.terms{text-align:center;color:#89958d;font-size:11px;line-height:1.6;margin-top:19px}
+@media(max-height:800px){
+ .logo-area{height:260px}
+ input,.phone-wrap{height:65px;margin-bottom:20px}
+ .main-btn{height:68px}
+ .switch{margin-top:35px}
+}
 </style>
 </head>
 <body>
-<div class="wrapper">
- <div class="brand">
-  <div class="logo">SHOP.</div>
-  <p>Your Shopping Destination</p>
+<div class="container">
+
+ <div class="logo-area">
+  <div class="logo">SH<span>O</span>P</div>
  </div>
 
- <div class="card">
-  <div class="tabs">
-   <button id="loginTab" class="active" onclick="showForm('login')">Login</button>
-   <button id="registerTab" onclick="showForm('register')">Register</button>
+ <div class="form-area">
+
+  <form id="registerForm">
+   <div class="phone-wrap">
+    <span>+880</span>
+    <input id="phone" type="tel" placeholder="আপনার মোবাইল নম্বর লিখুন" required>
+   </div>
+
+   <input id="password" type="password"
+   placeholder="লগইন পাসওয়ার্ড" minlength="8" required>
+
+   <input id="confirmPassword" type="password"
+   placeholder="পাসওয়ার্ড আবার লিখুন" minlength="8" required>
+
+   <input id="referral" type="text"
+   placeholder="রেফারেল কোড (ঐচ্ছিক)">
+
+   <button class="main-btn" type="submit">রেজিস্টার করুন</button>
+  </form>
+
+  <form id="loginForm" class="hidden">
+   <div class="phone-wrap">
+    <span>+880</span>
+    <input id="loginPhone" type="tel"
+    placeholder="আপনার মোবাইল নম্বর লিখুন" required>
+   </div>
+
+   <input id="loginPassword" type="password"
+   placeholder="লগইন পাসওয়ার্ড" required>
+
+   <button class="main-btn" type="submit">লগইন করুন</button>
+  </form>
+
+  <p id="message"></p>
+
+  <div class="switch" id="registerSwitch">
+   ইতিমধ্যে রেজিস্টার করেছেন?
+   <button onclick="showLogin()">লগইন</button>
   </div>
 
-  <form id="loginForm">
-   <h2>Welcome Back!</h2>
-   <p class="subtitle">Login to continue to your account.</p>
-   <label>Mobile Number or Email</label>
-   <input id="loginUser" required placeholder="Enter mobile or email">
-   <label>Password</label>
-   <input id="loginPass" type="password" required placeholder="Enter password">
-   <button class="submit" type="submit">LOGIN</button>
-  </form>
+  <div class="switch hidden" id="loginSwitch">
+   অ্যাকাউন্ট নেই?
+   <button onclick="showRegister()">রেজিস্টার</button>
+  </div>
 
-  <form id="registerForm" class="hidden">
-   <h2>Create Account</h2>
-   <p class="subtitle">Join SHOP and start shopping.</p>
-   <label>Full Name</label>
-   <input id="regName" required maxlength="60" placeholder="Enter your name">
-   <label>Mobile Number</label>
-   <input id="regPhone" type="tel" required placeholder="Enter mobile number">
-   <label>Email (Optional)</label>
-   <input id="regEmail" type="email" placeholder="Enter email address">
-   <label>Create Password</label>
-   <input id="regPass" type="password" minlength="8" required placeholder="At least 8 characters">
-   <label>Confirm Password</label>
-   <input id="regConfirm" type="password" minlength="8" required placeholder="Enter password again">
-   <button class="submit" type="submit">CREATE ACCOUNT</button>
-  </form>
-
-  <p id="message" class="message"></p>
- </div>
- <div class="terms">
-  By continuing, you agree to SHOP's Terms & Privacy Policy.
  </div>
 </div>
 
 <script>
-const loginForm=document.getElementById('loginForm');
 const registerForm=document.getElementById('registerForm');
+const loginForm=document.getElementById('loginForm');
 const message=document.getElementById('message');
 
-function showForm(type){
+function showLogin(){
+ registerForm.classList.add('hidden');
+ loginForm.classList.remove('hidden');
+ document.getElementById('registerSwitch').classList.add('hidden');
+ document.getElementById('loginSwitch').classList.remove('hidden');
  message.textContent='';
- loginForm.classList.toggle('hidden',type!=='login');
- registerForm.classList.toggle('hidden',type!=='register');
- document.getElementById('loginTab').classList.toggle('active',type==='login');
- document.getElementById('registerTab').classList.toggle('active',type==='register');
 }
 
-loginForm.addEventListener('submit',async e=>{
- e.preventDefault();
- message.textContent='Login হচ্ছে...';
- const button=loginForm.querySelector('button');
- button.disabled=true;
- try{
-  const response=await fetch('/api/login',{
-   method:'POST',
-   headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({
-    username:document.getElementById('loginUser').value.trim(),
-    password:document.getElementById('loginPass').value
-   })
-  });
-  const data=await response.json();
-  if(!response.ok)throw new Error(data.message||'Login করা যায়নি');
-  location.href='/home.html';
- }catch(err){
-  message.textContent=err.message;
- }finally{button.disabled=false}
-});
+function showRegister(){
+ loginForm.classList.add('hidden');
+ registerForm.classList.remove('hidden');
+ document.getElementById('loginSwitch').classList.add('hidden');
+ document.getElementById('registerSwitch').classList.remove('hidden');
+ message.textContent='';
+}
 
-registerForm.addEventListener('submit',async e=>{
+registerForm.addEventListener('submit',async function(e){
  e.preventDefault();
- const password=document.getElementById('regPass').value;
- const confirm=document.getElementById('regConfirm').value;
- if(password!==confirm){
-  message.textContent='দুইটি Password মিলছে না।';
+
+ const phone=document.getElementById('phone').value.trim();
+ const password=document.getElementById('password').value;
+ const confirm=document.getElementById('confirmPassword').value;
+ const referral=document.getElementById('referral').value.trim();
+
+ if(!/^[0-9]{10}$/.test(phone)){
+  message.textContent='সঠিক ১০ সংখ্যার মোবাইল নম্বর লিখুন।';
   return;
  }
- message.textContent='Account তৈরি হচ্ছে...';
- const button=registerForm.querySelector('button');
- button.disabled=true;
- try{
-  const response=await fetch('/api/register',{
-   method:'POST',
-   headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({
-    name:document.getElementById('regName').value.trim(),
-    phone:document.getElementById('regPhone').value.trim(),
-    email:document.getElementById('regEmail').value.trim(),
-    password
-   })
-  });
-  const data=await response.json();
-  if(!response.ok)throw new Error(data.message||'Account তৈরি হয়নি');
-  location.href='/home.html';
- }catch(err){
-  message.textContent=err.message;
- }finally{button.disabled=false}
+ if(password!==confirm){
+  message.textContent='দুইটি পাসওয়ার্ড মিলছে না।';
+  return;
+ }
+
+ message.textContent='রেজিস্ট্রেশন সার্ভার প্রস্তুত করা বাকি।';
+});
+
+loginForm.addEventListener('submit',function(e){
+ e.preventDefault();
+ message.textContent='লগইন সার্ভার প্রস্তুত করা বাকি।';
 });
 </script>
 </body>
