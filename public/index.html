@@ -5,8 +5,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SHOP - Register</title>
+
 <style>
 *{box-sizing:border-box}
+
 body{
  margin:0;
  min-height:100vh;
@@ -14,58 +16,71 @@ body{
  background:linear-gradient(160deg,#fff 25%,#eff7ed);
  color:#202820;
 }
+
 .container{
  width:100%;
- max-width:500px;
+ max-width:420px;
  margin:auto;
- padding:0 5% 35px;
+ padding:10px 20px 20px;
 }
+
 .logo-area{
- height:390px;
+ height:190px;
  display:flex;
  align-items:center;
  justify-content:center;
 }
+
 .logo{
- width:130px;
- height:130px;
+ width:95px;
+ height:95px;
  background:#080808;
  color:white;
  display:flex;
  align-items:center;
  justify-content:center;
- font-size:43px;
+ font-size:33px;
  font-weight:900;
  letter-spacing:-4px;
- border:5px solid #080808;
+ border:4px solid #080808;
 }
+
 .logo span{color:#13a45a}
+
 .form-area{width:100%}
+
 input{
  width:100%;
- height:86px;
+ height:55px;
  border:1px solid #e9eeea;
  background:#fff;
- border-radius:11px;
- padding:0 19px;
- margin-bottom:35px;
- font-size:19px;
+ border-radius:10px;
+ padding:0 14px;
+ margin-bottom:13px;
+ font-size:15px;
  outline:none;
  color:#222;
- box-shadow:0 2px 5px #00000003;
 }
+
 input:focus{border-color:#087b43}
+
 .phone-wrap{
  display:flex;
  align-items:center;
- height:86px;
+ height:55px;
  border:1px solid #e9eeea;
  background:white;
- border-radius:11px;
- margin-bottom:35px;
- padding:0 18px;
+ border-radius:10px;
+ margin-bottom:13px;
+ padding:0 13px;
 }
-.phone-wrap span{font-size:21px;color:#555;margin-right:12px}
+
+.phone-wrap span{
+ font-size:16px;
+ color:#555;
+ margin-right:10px;
+}
+
 .phone-wrap input{
  height:100%;
  border:0;
@@ -74,45 +89,52 @@ input:focus{border-color:#087b43}
  box-shadow:none;
  min-width:0;
 }
+
 .main-btn{
  width:100%;
- height:84px;
+ height:56px;
  border:0;
- border-radius:50px;
+ border-radius:40px;
  color:white;
- font-size:25px;
+ font-size:18px;
  font-weight:bold;
  background:linear-gradient(105deg,#07854b,#00331e);
- margin-top:10px;
+ margin-top:4px;
 }
+
 .switch{
  text-align:center;
- margin-top:55px;
- font-size:19px;
+ margin-top:22px;
+ font-size:14px;
 }
+
 .switch button{
  border:0;
  background:transparent;
  font-weight:bold;
- font-size:20px;
- margin-left:10px;
+ font-size:15px;
+ margin-left:7px;
+ color:#087b43;
 }
+
 #message{
  text-align:center;
- font-size:14px;
- margin-top:18px;
+ font-size:13px;
+ margin-top:12px;
  color:#087b43;
  line-height:1.5;
 }
+
 .hidden{display:none}
-@media(max-height:800px){
- .logo-area{height:260px}
- input,.phone-wrap{height:65px;margin-bottom:20px}
- .main-btn{height:68px}
- .switch{margin-top:35px}
+
+@media(max-height:700px){
+ .logo-area{height:130px}
+ .container{padding-top:5px}
+ .switch{margin-top:15px}
 }
 </style>
 </head>
+
 <body>
 <div class="container">
 
@@ -125,7 +147,8 @@ input:focus{border-color:#087b43}
   <form id="registerForm">
    <div class="phone-wrap">
     <span>+880</span>
-    <input id="phone" type="tel" placeholder="আপনার মোবাইল নম্বর লিখুন" required>
+    <input id="phone" type="tel"
+    placeholder="আপনার মোবাইল নম্বর লিখুন" required>
    </div>
 
    <input id="password" type="password"
@@ -157,12 +180,12 @@ input:focus{border-color:#087b43}
 
   <div class="switch" id="registerSwitch">
    ইতিমধ্যে রেজিস্টার করেছেন?
-   <button onclick="showLogin()">লগইন</button>
+   <button type="button" onclick="showLogin()">লগইন</button>
   </div>
 
   <div class="switch hidden" id="loginSwitch">
    অ্যাকাউন্ট নেই?
-   <button onclick="showRegister()">রেজিস্টার</button>
+   <button type="button" onclick="showRegister()">রেজিস্টার</button>
   </div>
 
  </div>
@@ -189,29 +212,29 @@ function showRegister(){
  message.textContent='';
 }
 
-registerForm.addEventListener('submit',async function(e){
+registerForm.addEventListener('submit',function(e){
  e.preventDefault();
 
  const phone=document.getElementById('phone').value.trim();
  const password=document.getElementById('password').value;
  const confirm=document.getElementById('confirmPassword').value;
- const referral=document.getElementById('referral').value.trim();
 
  if(!/^[0-9]{10}$/.test(phone)){
   message.textContent='সঠিক ১০ সংখ্যার মোবাইল নম্বর লিখুন।';
   return;
  }
+
  if(password!==confirm){
   message.textContent='দুইটি পাসওয়ার্ড মিলছে না।';
   return;
  }
 
- message.textContent='রেজিস্ট্রেশন সার্ভার প্রস্তুত করা বাকি।';
+ message.textContent='Registration server এখনো যুক্ত করা হয়নি।';
 });
 
 loginForm.addEventListener('submit',function(e){
  e.preventDefault();
- message.textContent='লগইন সার্ভার প্রস্তুত করা বাকি।';
+ message.textContent='Login server এখনো যুক্ত করা হয়নি।';
 });
 </script>
 </body>
