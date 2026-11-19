@@ -1,91 +1,179 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HECAR Demo Store</title>
+<title>SHOP - Premium Store</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f3f7f3;color:#17251b;font-family:Arial,sans-serif}
-header{background:#087b43;color:white;padding:20px}
-header h2{margin:0}
-header p{margin:7px 0 0;font-size:13px}
-.container{padding:16px;max-width:650px;margin:auto}
-.notice{background:#fff4d6;border:1px solid #f0d58b;padding:12px;border-radius:10px;font-size:13px}
-h3{margin-top:24px}
-.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.product{background:white;border-radius:13px;padding:14px;box-shadow:0 2px 8px #0001}
-.product .emoji{font-size:38px}
-.product h3{margin:8px 0}
-.price{color:#087b43;font-weight:bold}
-button{background:#087b43;color:white;border:0;border-radius:8px;padding:11px;width:100%;font-weight:bold;margin-top:10px}
-button:disabled{opacity:.5}
-input{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;margin-top:8px}
-footer{text-align:center;padding:25px;color:#777;font-size:12px}
-a{color:#087b43}
+body{margin:0;background:#f5f7f5;color:#18251e;font-family:Arial,sans-serif;padding-bottom:85px}
+header{background:#fff;padding:17px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px #00000008}
+.logo{font-size:27px;font-weight:900;color:#087b43;letter-spacing:1px}
+.logo span{color:#18251e}
+.header-icon{background:#eff7f1;padding:11px;border-radius:50%;font-size:19px}
+.container{max-width:650px;margin:auto;padding:16px}
+.hero{background:linear-gradient(120deg,#075c35,#0ca45a);border-radius:22px;padding:25px 20px;color:white;position:relative;overflow:hidden;min-height:175px}
+.hero:after{content:"🛍️";position:absolute;right:12px;bottom:5px;font-size:85px;opacity:.9}
+.hero small{background:#ffffff26;padding:7px 12px;border-radius:20px}
+.hero h1{font-size:27px;margin:18px 0 8px;max-width:70%}
+.hero p{font-size:13px;opacity:.9;max-width:65%;line-height:1.5}
+.search{margin:20px 0;background:white;border-radius:13px;padding:13px 15px;display:flex;gap:10px;box-shadow:0 3px 14px #00000008}
+.search input{border:0;outline:0;width:100%;font-size:15px;background:transparent}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:22px 0 13px}
+.section-head h2{font-size:19px;margin:0}
+.section-head span{font-size:12px;color:#087b43}
+.categories{display:flex;gap:9px;overflow:auto;padding-bottom:5px}
+.category{background:white;border:1px solid #e7eee8;padding:10px 16px;border-radius:22px;white-space:nowrap;font-size:13px}
+.category.active{background:#087b43;color:white;border-color:#087b43}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.product{background:white;border-radius:17px;padding:11px;box-shadow:0 3px 15px #00000008;overflow:hidden}
+.product-art{height:125px;border-radius:13px;background:linear-gradient(140deg,#e5f5e9,#c8e8d1);display:flex;align-items:center;justify-content:center;font-size:65px;position:relative}
+.product-art:after{content:"SHOP";position:absolute;bottom:8px;right:9px;font-size:9px;letter-spacing:2px;color:#087b4366;font-weight:bold}
+.product h3{font-size:15px;margin:12px 2px 7px}
+.price{color:#087b43;font-size:17px;font-weight:bold;margin:0 2px}
+.demo-label{font-size:10px;color:#89938c;margin:6px 2px}
+.product button{width:100%;border:0;background:#087b43;color:white;padding:11px;border-radius:10px;font-weight:bold;margin-top:9px}
+.notice{background:#fff8e5;border:1px solid #f0dfad;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#715b25;margin-top:20px}
+.order-box{background:white;padding:17px;border-radius:17px;margin-top:22px}
+.order-box h2{font-size:19px;margin-top:0}
+.order-box input{width:100%;padding:13px;border:1px solid #e1e8e2;border-radius:10px;margin:7px 0;outline:none;font-size:14px}
+.main-btn{width:100%;background:#087b43;color:white;border:0;border-radius:10px;padding:14px;font-weight:bold;margin-top:10px}
+#message{font-size:13px;color:#087b43}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:11px 5px max(11px,env(safe-area-inset-bottom));box-shadow:0 -3px 15px #0000000c;z-index:20}
+.bottom a{text-decoration:none;color:#7b8980;text-align:center;font-size:11px;flex:1}
+.bottom a b{display:block;font-size:21px;margin-bottom:4px}
+.bottom a.active{color:#087b43}
+footer{text-align:center;color:#89938c;font-size:11px;padding:25px 10px}
+footer a{color:#087b43;text-decoration:none}
 </style>
 </head>
 <body>
+
 <header>
-<h2>HECAR STORE</h2>
-<p>Welcome to our demo product store</p>
+ <div class="logo">SH<span>O</span>P.</div>
+ <div class="header-icon">🛒</div>
 </header>
 
-<div class="container">
-<div class="notice">
-<strong>ডেমো ওয়েবসাইট:</strong> এখানে কোনো আসল টাকা জমা, আয় বা উত্তোলন হয় না। সব অর্ডার শুধু পরীক্ষার জন্য।
-</div>
+<main class="container">
+ <section class="hero">
+  <small>WELCOME TO SHOP</small>
+  <h1>Discover Your Favorite Products</h1>
+  <p>Explore our demo collection and enjoy a beautiful shopping experience.</p>
+ </section>
 
-<h3>আমাদের প্রোডাক্ট</h3>
-<div class="products" id="products">
-লোড হচ্ছে...
-</div>
+ <div class="search">
+  <span>🔍</span>
+  <input id="search" placeholder="প্রোডাক্ট খুঁজুন..." oninput="filterProducts()">
+ </div>
 
-<h3>ডেমো অর্ডার</h3>
-<input id="customer" placeholder="তোমার নাম লিখো">
-<input id="phone" placeholder="মোবাইল নম্বর লিখো">
-<p id="selected">কোনো প্রোডাক্ট নির্বাচন করা হয়নি</p>
-<button onclick="placeOrder()">অর্ডার জমা দাও</button>
-<p id="message"></p>
+ <div class="section-head">
+  <h2>ক্যাটাগরি</h2>
+  <span>সব দেখুন</span>
+ </div>
+ <div class="categories">
+  <div class="category active">✨ সব</div>
+  <div class="category">🏍️ Collection</div>
+  <div class="category">⭐ Premium</div>
+  <div class="category">🎁 Special</div>
+ </div>
+
+ <div class="section-head">
+  <h2>জনপ্রিয় প্রোডাক্ট</h2>
+  <span>Our Collection</span>
+ </div>
+
+ <div class="products" id="products">
+  <p>প্রোডাক্ট লোড হচ্ছে...</p>
+ </div>
+
+ <div class="order-box" id="order">
+  <h2>🛍️ অর্ডার করুন</h2>
+  <p style="font-size:12px;color:#7b8980">প্রোডাক্ট নির্বাচন করে তথ্য দিন।</p>
+  <input id="customer" placeholder="তোমার নাম">
+  <input id="phone" type="tel" placeholder="মোবাইল নম্বর">
+  <p id="selected" style="font-size:13px;color:#087b43">কোনো প্রোডাক্ট নির্বাচন করা হয়নি</p>
+  <button class="main-btn" onclick="placeOrder()">অর্ডার জমা দিন</button>
+  <p id="message"></p>
+ </div>
+
+ <div class="notice">
+  <b>ডেমো স্টোর:</b> এই ওয়েবসাইটে কোনো আসল পেমেন্ট, টাকা জমা, আয় বা উত্তোলন হয় না। অর্ডারগুলো শুধু পরীক্ষার জন্য।
+ </div>
+</main>
 
 <footer>
-HECAR STORE — Demo Website
-<br><a href="/admin">Admin Panel</a>
+ SHOP Premium Demo Store<br><br>
+ <a href="/admin">Admin Panel</a>
 </footer>
-</div>
+
+<nav class="bottom">
+ <a href="#" class="active"><b>⌂</b>Home</a>
+ <a href="#products"><b>▦</b>Products</a>
+ <a href="#order"><b>🛍</b>Orders</a>
+ <a href="/admin"><b>⚙</b>Admin</a>
+</nav>
 
 <script>
+let allProducts=[];
 let selectedProduct=null;
 
 async function loadProducts(){
  const box=document.getElementById('products');
  try{
-  const res=await fetch('/api/products');
-  const products=await res.json();
-  box.innerHTML='';
-  products.forEach(p=>{
-   const card=document.createElement('div');
-   card.className='product';
-   const emoji=document.createElement('div');
-   emoji.className='emoji';
-   emoji.textContent='🏍️';
-   const name=document.createElement('h3');
-   name.textContent=p.name;
-   const price=document.createElement('div');
-   price.className='price';
-   price.textContent='৳ '+p.price;
-   const btn=document.createElement('button');
-   btn.textContent='নির্বাচন করো';
-   btn.onclick=()=>{
-    selectedProduct=p.id;
-    document.getElementById('selected').textContent='নির্বাচিত: '+p.name;
-    document.querySelectorAll('.product button').forEach(b=>b.textContent='নির্বাচন করো');
-    btn.textContent='নির্বাচিত ✓';
-   };
-   card.append(emoji,name,price,btn);
-   box.appendChild(card);
-  });
- }catch(e){box.textContent='প্রোডাক্ট লোড হয়নি। পরে আবার চেষ্টা করো।'}
+  const response=await fetch('/api/products');
+  if(!response.ok)throw new Error();
+  allProducts=await response.json();
+  showProducts(allProducts);
+ }catch(e){
+  box.textContent='প্রোডাক্ট লোড হয়নি। আবার চেষ্টা করো।';
+ }
+}
+
+function showProducts(items){
+ const box=document.getElementById('products');
+ box.innerHTML='';
+
+ if(!items.length){
+  box.textContent='কোনো প্রোডাক্ট পাওয়া যায়নি।';
+  return;
+ }
+
+ items.forEach(p=>{
+  const card=document.createElement('div');
+  card.className='product';
+
+  const art=document.createElement('div');
+  art.className='product-art';
+  art.textContent='🛍️';
+
+  const name=document.createElement('h3');
+  name.textContent=p.name;
+
+  const price=document.createElement('div');
+  price.className='price';
+  price.textContent='৳ '+p.price;
+
+  const label=document.createElement('div');
+  label.className='demo-label';
+  label.textContent='DEMO PRODUCT';
+
+  const btn=document.createElement('button');
+  btn.textContent='অর্ডার করুন';
+  btn.onclick=()=>{
+   selectedProduct=p.id;
+   document.getElementById('selected').textContent='নির্বাচিত: '+p.name;
+   document.getElementById('order').scrollIntoView({behavior:'smooth'});
+  };
+
+  card.append(art,name,price,label,btn);
+  box.appendChild(card);
+ });
+}
+
+function filterProducts(){
+ const value=document.getElementById('search').value.toLowerCase();
+ showProducts(allProducts.filter(p=>p.name.toLowerCase().includes(value)));
 }
 
 async function placeOrder(){
@@ -94,22 +182,24 @@ async function placeOrder(){
  const message=document.getElementById('message');
 
  if(!customer||!phone||!selectedProduct){
-  message.textContent='নাম, মোবাইল নম্বর এবং প্রোডাক্ট নির্বাচন করো।';
+  message.textContent='নাম, মোবাইল নম্বর ও প্রোডাক্ট নির্বাচন করো।';
   return;
  }
 
  try{
-  const res=await fetch('/api/orders',{
+  const response=await fetch('/api/orders',{
    method:'POST',
    headers:{'Content-Type':'application/json'},
    body:JSON.stringify({customer,phone,productId:selectedProduct})
   });
-  const data=await res.json();
-  message.textContent=data.message||'অর্ডার জমা হয়েছে।';
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.message||'অর্ডার জমা হয়নি');
+  message.textContent=data.message||'ডেমো অর্ডার জমা হয়েছে!';
  }catch(e){
-  message.textContent='অর্ডার জমা হয়নি। আবার চেষ্টা করো।';
+  message.textContent=e.message||'আবার চেষ্টা করো।';
  }
 }
+
 loadProducts();
 </script>
 </body>
