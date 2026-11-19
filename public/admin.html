@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HECAR Admin Panel</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eef3ef;font-family:Arial;color:#17251b}
+header{background:#075c35;color:white;padding:20px}
+main{max-width:700px;margin:auto;padding:16px}
+.card{background:white;padding:16px;border-radius:12px;margin:14px 0;box-shadow:0 2px 8px #0001}
+input{width:100%;padding:12px;margin:7px 0;border:1px solid #ccc;border-radius:8px}
+button{background:#087b43;color:white;border:0;padding:11px 15px;border-radius:8px;margin:5px 0}
+.danger{background:#c0392b}
+.item{border-bottom:1px solid #ddd;padding:12px 0}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header>
+<h2>HECAR Admin Panel</h2>
+<p>Private demo store management</p>
+</header>
+
+<main>
+<div class="card" id="loginBox">
+<h3>Admin Login</h3>
+<input id="username" placeholder="Admin username">
+<input id="password" type="password" placeholder="Admin password">
+<button onclick="login()">Login</button>
+<p id="loginMessage"></p>
+</div>
+
+<div id="dashboard" class="hidden">
+<div class="card">
+<h3>Dashboard</h3>
+<p>এটি ডেমো ওয়েবসাইটের অ্যাডমিন প্যানেল।</p>
+<button onclick="loadData()">Refresh Data</button>
+<button class="danger" onclick="logout()">Logout</button>
+<p id="status"></p>
+</div>
+
+<div class="card">
+<h3>নতুন প্রোডাক্ট যোগ করো</h3>
+<input id="productName" placeholder="Product name">
+<input id="productPrice" type="number" placeholder="Demo price">
+<button onclick="addProduct()">Add Product</button>
+<p id="productMessage"></p>
+</div>
+
+<div class="card">
+<h3>প্রোডাক্ট তালিকা</h3>
+<div id="products">লোড হচ্ছে...</div>
+</div>
+
+<div class="card">
+<h3>ডেমো অর্ডার তালিকা</h3>
+<div id="orders">লোড হচ্ছে...</div>
+</div>
+</div>
+</main>
+
+<script>
+async function login(){
+ const username=document.getElementById('username').value;
+ const password=document.getElementById('password').value;
+ const msg=document.getElementById('loginMessage');
+
+ try{
+  const r=await fetch('/api/admin/login',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({username,password})
+  });
+  const d=await r.json();
+  if(!r.ok) throw new Error(d.message||'Login failed');
+  showDashboard();
+ }catch(e){msg.textContent=e.message}
+}
+
+function showDashboard(){
+ document.getElementById('loginBox').classList.add('hidden');
+ document.getElementById('dashboard').classList.remove('hidden');
+ loadData();
+}
+
+async function loadData(){
+ try{
+  const r=await fetch('/api/admin/data');
+  if(r.status===401){
+   document.getElementById('dashboard').classList.add('hidden');
+   document.getElementById('loginBox').classList.remove('hidden');
+   return;
+  }
+  const d=await r.json();
+
+  document.getElementById('status').textContent=
+   'মোট প্রোডাক্ট: '+d.products.length+' | মোট ডেমো অর্ডার: '+d.orders.length;
+
+  const products=document.getElementById('products');
+  products.innerHTML='';
+  d.products.forEach(p=>{
+   const div=document.createElement('div');
+   div.className='item';
+   const name=document.createElement('strong');
+   name.textContent=p.name+' — ৳'+p.price;
+   const btn=document.createElement('button');
+   btn.className='danger';
+   btn.textContent='Delete';
+   btn.onclick=()=>deleteProduct(p.id);
+   div.append(name,document.createElement('br'),btn);
+   products.appendChild(div);
+  });
+
+  const orders=document.getElementById('orders');
+  orders.innerHTML='';
+  if(!d.orders.length) orders.textContent='এখনো কোনো অর্ডার নেই।';
+
+  d.orders.forEach(o=>{
+   const div=document.createElement('div');
+   div.className='item';
+   div.textContent='নাম: '+o.customer+' | ফোন: '+o.phone+' | প্রোডাক্ট: '+o.productName;
+   orders.appendChild(div);
+  });
+ }catch(e){
+  document.getElementById('status').textContent='ডেটা লোড হয়নি। আবার চেষ্টা করো।';
+ }
+}
+
+async function addProduct(){
+ const name=document.getElementById('productName').value.trim();
+ const price=Number(document.getElementById('productPrice').value);
+ const msg=document.getElementById('productMessage');
+ if(!name||!price||price<1){msg.textContent='নাম ও সঠিক ডেমো মূল্য দাও।';return}
+
+ try{
+  const r=await fetch('/api/admin/products',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({name,price})
+  });
+  const d=await r.json();
+  if(!r.ok) throw new Error(d.message||'যোগ করা যায়নি');
+  msg.textContent='প্রোডাক্ট যোগ হয়েছে।';
+  document.getElementById('productName').value='';
+  document.getElementById('productPrice').value='';
+  loadData();
+ }catch(e){msg.textContent=e.message}
+}
+
+async function deleteProduct(id){
+ if(!confirm('এই প্রোডাক্টটি মুছবে?'))return;
+ const r=await fetch('/api/admin/products/'+id,{method:'DELETE'});
+ if(r.ok)loadData();
+ else alert('মুছতে সমস্যা হয়েছে।');
+}
+
+async function logout(){
+ await fetch('/api/admin/logout',{method:'POST'});
+ location.reload();
+}
+</script>
+</body>
+</html>
