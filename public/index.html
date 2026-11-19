@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HECAR Demo Store</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3f7f3;color:#17251b;font-family:Arial,sans-serif}
+header{background:#087b43;color:white;padding:20px}
+header h2{margin:0}
+header p{margin:7px 0 0;font-size:13px}
+.container{padding:16px;max-width:650px;margin:auto}
+.notice{background:#fff4d6;border:1px solid #f0d58b;padding:12px;border-radius:10px;font-size:13px}
+h3{margin-top:24px}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.product{background:white;border-radius:13px;padding:14px;box-shadow:0 2px 8px #0001}
+.product .emoji{font-size:38px}
+.product h3{margin:8px 0}
+.price{color:#087b43;font-weight:bold}
+button{background:#087b43;color:white;border:0;border-radius:8px;padding:11px;width:100%;font-weight:bold;margin-top:10px}
+button:disabled{opacity:.5}
+input{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;margin-top:8px}
+footer{text-align:center;padding:25px;color:#777;font-size:12px}
+a{color:#087b43}
+</style>
+</head>
+<body>
+<header>
+<h2>HECAR STORE</h2>
+<p>Welcome to our demo product store</p>
+</header>
+
+<div class="container">
+<div class="notice">
+<strong>ডেমো ওয়েবসাইট:</strong> এখানে কোনো আসল টাকা জমা, আয় বা উত্তোলন হয় না। সব অর্ডার শুধু পরীক্ষার জন্য।
+</div>
+
+<h3>আমাদের প্রোডাক্ট</h3>
+<div class="products" id="products">
+লোড হচ্ছে...
+</div>
+
+<h3>ডেমো অর্ডার</h3>
+<input id="customer" placeholder="তোমার নাম লিখো">
+<input id="phone" placeholder="মোবাইল নম্বর লিখো">
+<p id="selected">কোনো প্রোডাক্ট নির্বাচন করা হয়নি</p>
+<button onclick="placeOrder()">অর্ডার জমা দাও</button>
+<p id="message"></p>
+
+<footer>
+HECAR STORE — Demo Website
+<br><a href="/admin">Admin Panel</a>
+</footer>
+</div>
+
+<script>
+let selectedProduct=null;
+
+async function loadProducts(){
+ const box=document.getElementById('products');
+ try{
+  const res=await fetch('/api/products');
+  const products=await res.json();
+  box.innerHTML='';
+  products.forEach(p=>{
+   const card=document.createElement('div');
+   card.className='product';
+   const emoji=document.createElement('div');
+   emoji.className='emoji';
+   emoji.textContent='🏍️';
+   const name=document.createElement('h3');
+   name.textContent=p.name;
+   const price=document.createElement('div');
+   price.className='price';
+   price.textContent='৳ '+p.price;
+   const btn=document.createElement('button');
+   btn.textContent='নির্বাচন করো';
+   btn.onclick=()=>{
+    selectedProduct=p.id;
+    document.getElementById('selected').textContent='নির্বাচিত: '+p.name;
+    document.querySelectorAll('.product button').forEach(b=>b.textContent='নির্বাচন করো');
+    btn.textContent='নির্বাচিত ✓';
+   };
+   card.append(emoji,name,price,btn);
+   box.appendChild(card);
+  });
+ }catch(e){box.textContent='প্রোডাক্ট লোড হয়নি। পরে আবার চেষ্টা করো।'}
+}
+
+async function placeOrder(){
+ const customer=document.getElementById('customer').value.trim();
+ const phone=document.getElementById('phone').value.trim();
+ const message=document.getElementById('message');
+
+ if(!customer||!phone||!selectedProduct){
+  message.textContent='নাম, মোবাইল নম্বর এবং প্রোডাক্ট নির্বাচন করো।';
+  return;
+ }
+
+ try{
+  const res=await fetch('/api/orders',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({customer,phone,productId:selectedProduct})
+  });
+  const data=await res.json();
+  message.textContent=data.message||'অর্ডার জমা হয়েছে।';
+ }catch(e){
+  message.textContent='অর্ডার জমা হয়নি। আবার চেষ্টা করো।';
+ }
+}
+loadProducts();
+</script>
+</body>
+</html>
