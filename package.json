@@ -2,12 +2,16 @@
 {
   "name": "hecar-demo-website",
   "version": "1.0.0",
-  "description": "HECAR Demo Website",
+  "description": "HECAR Demo Store",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-session": "^1.18.1"
   }
 }
